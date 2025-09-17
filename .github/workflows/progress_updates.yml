@@ -1,0 +1,13 @@
+name: Progress Updates
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Progress Notification
+        run: echo "Progress update: New changes have been pushed to the main branch."
