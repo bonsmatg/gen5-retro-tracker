@@ -1,0 +1,8 @@
+{
+  "initiators": [{"type": "web"}],
+  "tasks": [
+    {"type":"httpget","params":{"get":"https://api.example.com/data"}},
+    {"type":"jsonparse","params":{"query":"$.price"}},
+    {"type":"ethtx","params":{"address":"0xYOUR_CONTRACT_ADDRESS","confirmations":1}}
+  ]
+}

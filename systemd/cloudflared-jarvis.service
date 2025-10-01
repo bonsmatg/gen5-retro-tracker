@@ -1,0 +1,14 @@
+[Unit]
+Description=Cloudflared Tunnel for Jarvis
+After=network.target
+
+[Service]
+User=cloudflared
+EnvironmentFile=/etc/default/cloudflared
+ExecStart=/usr/local/bin/cloudflared tunnel --config /etc/cloudflared/config.yml run jarvis
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

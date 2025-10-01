@@ -1,0 +1,6 @@
+tunnel: <TUNNEL-ID>
+credentials-file: /home/<user>/.cloudflared/<TUNNEL-ID>.json
+ingress:
+  - hostname: jarvis.example.com
+    service: http://jarvis:8000
+  - service: http_status:404
