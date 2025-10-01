@@ -1,0 +1,39 @@
+{
+  "placeholders": {
+    "HOST": "https://jarvis.example.com",
+    "JARVIS_TOKEN": "changeme"
+  },
+  "shortcuts": {
+    "finance_summary": {
+      "description": "Request a daily finance summary",
+      "method": "POST",
+      "url": "{{HOST}}/api/v1/command",
+      "headers": {
+        "Authorization": "Bearer {{JARVIS_TOKEN}}",
+        "Content-Type": "application/json"
+      },
+      "body": {"name": "routine:finance:summary", "args": {"account": "main", "period": "today", "chainlink_verify": false}}
+    },
+    "physical_log": {
+      "description": "Log a physical activity",
+      "method": "POST",
+      "url": "{{HOST}}/api/v1/command",
+      "headers": {"Authorization": "Bearer {{JARVIS_TOKEN}}","Content-Type": "application/json"},
+      "body": {"name": "routine:physical:log", "args": {"type": "workout", "duration_min": 30, "calories": 250}}
+    },
+    "mental_checkin": {
+      "description": "Submit a mental check-in",
+      "method": "POST",
+      "url": "{{HOST}}/api/v1/command",
+      "headers": {"Authorization": "Bearer {{JARVIS_TOKEN}}","Content-Type": "application/json"},
+      "body": {"name": "routine:mental:checkin", "args": {"mood": "calm", "notes": "Feeling focused"}}
+    },
+    "emotional_journal": {
+      "description": "Save an emotional journal entry",
+      "method": "POST",
+      "url": "{{HOST}}/api/v1/command",
+      "headers": {"Authorization": "Bearer {{JARVIS_TOKEN}}","Content-Type": "application/json"},
+      "body": {"name": "routine:emotional:journal", "args": {"entry": "Today I felt grateful after a walk.", "private": true}}
+    }
+  }
+}
