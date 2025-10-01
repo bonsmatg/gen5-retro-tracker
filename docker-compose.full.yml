@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  jarvis:
+    build: .
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+    restart: unless-stopped
+
+  postgres-chainlink:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: chainlink
+      POSTGRES_PASSWORD: chainlinkpassword
+      POSTGRES_DB: chainlink
+    volumes:
+      - chainlink-db:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  chainlink:
+    image: smartcontract/chainlink:latest
+    env_file: chainlink.env
+    depends_on:
+      - postgres-chainlink
+    ports:
+      - "6688:6688"
+    volumes:
+      - ./chainlink:/chainlink
+    restart: unless-stopped
+
+  spark:
+    image: bitnami/spark:latest
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    depends_on:
+      - jarvis
+    volumes:
+      - ./cloudflared:/home/cloudflared/.cloudflared:ro
+    command: tunnel run jarvis
+    restart: unless-stopped
+
+volumes:
+  chainlink-db:
